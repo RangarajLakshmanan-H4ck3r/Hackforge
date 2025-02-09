@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coders Club</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+            color: #fff;
+            transition: margin-left 0.5s ease-in-out;
+        }
+        .background-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            filter: brightness(40%);
+        }
+        .container {
+            text-align: center;
+            color: white;
+            font-size: 3rem;
+            font-weight: bold;
+            position: relative;
+        }
+        .tagline {
+            font-size: 1.2rem;
+            margin-top: 10px;
+            font-weight: lighter;
+            opacity: 0.8;
+        }
+        .typing {
+            display: inline-block;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 3px solid white;
+            animation: typing 3s steps(12) forwards, blink 0.7s infinite;
+        }
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        @keyframes blink {
+            50% { border-color: transparent; }
+        }
+        .sidebar {
+            position: fixed;
+            left: -250px;
+            top: 0;
+            width: 250px;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            padding-top: 60px;
+            transition: 0.5s ease-in-out;
+        }
+        .sidebar a {
+            padding: 15px 25px;
+            display: block;
+            color: white;
+            text-decoration: none;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .sidebar a:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        .menu-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
+            z-index: 2;
+        }
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 25px;
+            color: white;
+            cursor: pointer;
+        }
+        #toggle:checked ~ .sidebar {
+            left: 0;
+        }
+        #toggle:checked ~ body {
+            margin-left: 250px;
+        }
+        #toggle {
+            display: none;
+        }
+        .loading {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2rem;
+        }
+        .spinner {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-top: 5px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .problem-statements {
+            display: none;
+            width: 80%;
+            margin: 20px auto;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .problem-statements table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .problem-statements th, .problem-statements td {
+            padding: 10px;
+            border: 1px solid white;
+            text-align: left;
+        }
+        .hack img{
+            width: 100%;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <video class="background-video" autoplay loop muted>
+        <source src="background.mp4" type="video/mp4">
+    </video>
+    <input type="checkbox" id="toggle">
+    <label for="toggle" class="menu-btn">&#9776;</label>
+    <div class="sidebar">
+        <span class="close-btn" onclick="document.getElementById('toggle').checked=false;">&times;</span>
+        <a href="#" onclick="showHome()">Home</a>
+        <a href="#" onclick="fetchProblemStatements()">Problem Statements</a>
+    </div>
+    <div class="hack">
+        <img src="logo1.png">
+    </div>
+    <div class="container" id="home-page">
+        <span class="typing">Coders Club</span>
+        <div class="tagline">Innovate. Code. Inspire.</div>
+    </div><br>
+    <P>Organizing...</P>
+    <div class="hack">
+    <img src="HACKFORGE.png">
+</div>
+    <div class="spinner" id="spinner"></div>
+    
+    <div class="problem-statements" id="problem-statements">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Problem Statement</th>
+                </tr>
+            </thead>
+            <tbody id="table-body"></tbody>
+        </table>
+    </div>
+
+    <script>
+        function fetchProblemStatements() {
+    document.getElementById('home-page').style.display = 'none';
+    document.getElementById('problem-statements').style.display = 'none';
+    document.getElementById('spinner').style.display = 'block';
+
+    // Hide images and "Organizing..." text while loading
+    document.querySelectorAll('.hack img').forEach(img => {
+        img.style.display = 'none';
+    });
+    document.querySelector('p').style.display = 'none'; // Hide "Organizing..." text
+
+    fetch('https://script.google.com/macros/s/AKfycbzk14x8iFgS8Z5KfTsQu78GtdSCRONWj7kXAwATavwPmQmM036WTrgWPw5hLz06Qg/exec')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('spinner').style.display = 'none';
+            document.getElementById('problem-statements').style.display = 'block';
+
+            let tableBody = document.getElementById('table-body');
+            tableBody.innerHTML = '';
+            data.forEach(item => {
+                let row = `<tr><td>${item.id}</td><td>${item.statement}</td></tr>`;
+                tableBody.innerHTML += row;
+            });
+        });
+}
+
+
+function showHome() {
+    document.getElementById('home-page').style.display = 'block';
+    document.getElementById('problem-statements').style.display = 'none';
+    document.getElementById('spinner').style.display = 'none';
+
+    // Show images and "Organizing..." text again when returning to home
+    document.querySelectorAll('.hack img').forEach(img => {
+        img.style.display = 'block';
+    });
+    document.querySelector('p').style.display = 'block'; // Show "Organizing..." text again
+}
+
+
+    </script>
+</body>
+</html>
