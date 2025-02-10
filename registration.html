@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Team Registration</title>
+    <link rel="icon" href="logo1.png" type="image/png">
     <style>
         body, html {
             margin: 0;
@@ -84,6 +85,30 @@
             from { opacity: 0; transform: translateY(-20px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        .back-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40%;
+            height: 40px; /* Small height */
+            border: 2px solid white;
+            background: transparent;
+            color: white;
+            font-size: 16px;
+            border-radius: 10px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .back-button::before {
+            content: "◀";
+            margin-right: 8px;
+        }
     </style>
 </head>
 <body>
@@ -95,6 +120,7 @@
         <h2>Team Registration Form</h2>
         <form id="registrationForm">
             <input type="text" id="teamName" placeholder="Team Name" required>
+
             <h3>Team Leader</h3>
             <input type="text" id="teamLeaderReg" placeholder="Register Number" required>
             <input type="text" id="teamLeaderName" placeholder="Name" required>
@@ -158,18 +184,42 @@
                 <option value="3">3</option>
             </select>
 
+            <h3>Contact</h3>
+            <input type="email" id="teamLeaderEmail" placeholder="Team Leader Email" required>
+            <input type="tel" id="teamLeaderPhone" placeholder="Team Leader Phone" required>
+
             <h3>Problem Statement</h3>
-            <textarea id="problemStatement" placeholder="Enter problem statement" required></textarea>
+            <select id="problemStatement" required>
+                <option value="" disabled selected>Loading...</option>
+            </select>
 
             <div class="spinner" id="loadingSpinner"></div>
             <button type="submit">Submit</button>
         </form>
     </div>
+    <center><a href="index.html" class="back-button">Back to Home</a></center><br><br>
 
     <script>
+        // Fetch Problem Statements from Google Apps Script
+        async function loadProblemStatements() {
+    const response = await fetch("https://script.google.com/macros/s/AKfycbx2iV4fhPjkDI7aIX6Az6C2vOIdNVX8jNHc9QzKeR7ISWU1KL3UIYq1GUvBwd-JhYrJ/exec");
+    const problems = await response.json();
+
+    let dropdown = document.getElementById("problemStatement");
+    dropdown.innerHTML = '<option value="" disabled selected>-- Select Problem Statement --</option>';
+
+    problems.forEach(problem => {
+        let option = document.createElement("option");
+        option.value = problem.statement;  // Get the actual problem statement text
+        option.textContent = problem.statement;
+        dropdown.appendChild(option);
+    });
+}
+
+window.onload = loadProblemStatements;
+
         document.getElementById("registrationForm").addEventListener("submit", function(event) {
             event.preventDefault();
-            
             document.getElementById("loadingSpinner").style.display = "block";
 
             var formData = {
@@ -189,10 +239,12 @@
                 participant2Dept: document.getElementById("participant2Dept").value,
                 participant2Stream: document.getElementById("participant2Stream").value,
                 participant2Year: document.getElementById("participant2Year").value,
+                teamLeaderEmail: document.getElementById("teamLeaderEmail").value,
+                teamLeaderPhone: document.getElementById("teamLeaderPhone").value,
                 problemStatement: document.getElementById("problemStatement").value
             };
 
-            fetch("https://script.google.com/macros/s/AKfycbzk14x8iFgS8Z5KfTsQu78GtdSCRONWj7kXAwATavwPmQmM036WTrgWPw5hLz06Qg/exec", {
+            fetch("https://script.google.com/macros/s/AKfycbx2iV4fhPjkDI7aIX6Az6C2vOIdNVX8jNHc9QzKeR7ISWU1KL3UIYq1GUvBwd-JhYrJ/exec", {
                 method: "POST",
                 body: JSON.stringify(formData)
             }).then(() => {
@@ -202,4 +254,3 @@
         });
     </script>
 </body>
-</html>
