@@ -100,19 +100,8 @@
         #toggle:checked ~ .sidebar {
             left: 0;
         }
-        #toggle:checked ~ body {
-            margin-left: 250px;
-        }
         #toggle {
             display: none;
-        }
-        .loading {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 2rem;
         }
         .spinner {
             display: none;
@@ -131,48 +120,35 @@
             100% { transform: rotate(360deg); }
         }
         .problem-statements {
-    display: none;
-    width: 80%;
-    margin: 20px auto;
-    background: rgba(0, 0, 0, 0.8);
-    padding: 20px;
-    border-radius: 10px;
-    max-height: 400px; /* Ensure this is not too small */
-    overflow-y: auto; /* Enables scrolling */
-    position: relative; /* Ensure proper rendering */
-}
+            display: none;
+            position: absolute;
+            top: 50px;
+            width: 90%;
+            height: 80vh;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            overflow-y: auto;
+            color: white;
+        }
         .problem-statements table {
-    width: 100%;
-    border-collapse: collapse;
-    display: block;
-}
-
-.problem-statements thead {
-    display: table;
-    width: 100%;
-    position: sticky;
-    top: 0;
-    background: black;
-    z-index: 1;
-}
-
-.problem-statements tbody {
-    display: block;
-    max-height: 300px; /* Adjust this based on need */
-    overflow-y: auto;
-    width: 100%;
-}
-
-.problem-statements th, .problem-statements td {
-    padding: 10px;
-    border: 1px solid white;
-    text-align: left;
-    display: table-cell;
-}
-
-        .hack img{
             width: 100%;
-            height: 100px;
+            border-collapse: collapse;
+        }
+        .problem-statements th, .problem-statements td {
+            padding: 15px;
+            border: 1px solid white;
+            text-align: center;
+        }
+        .problem-statements th {
+            background: black;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+        .hack img {
+            width: 100%;
+            max-height: 100px;
         }
     </style>
 </head>
@@ -180,6 +156,7 @@
     <video class="background-video" autoplay loop muted>
         <source src="background.mp4" type="video/mp4">
     </video>
+    
     <input type="checkbox" id="toggle">
     <label for="toggle" class="menu-btn">&#9776;</label>
     <div class="sidebar">
@@ -188,6 +165,7 @@
         <a href="#" onclick="fetchProblemStatements()">Problem Statements</a>
         <a href="registration.html">Registration</a>
     </div>
+    
     <div class="hack">
         <img src="logo1.png">
     </div>
@@ -195,12 +173,13 @@
         <span class="typing">Coders Club</span>
         <div class="tagline">Innovate. Code. Inspire.</div>
     </div><br>
-    <P>Organizing...</P>
+    <p id="organizing-text">Organizing...</p>
     <div class="hack">
-    <img src="HACKFORGE.png">
-</div>
-    <div class="spinner" id="spinner"></div>
+        <img src="HACKFORGE.png">
+    </div>
     
+    <div class="spinner" id="spinner"></div>
+
     <div class="problem-statements" id="problem-statements">
         <table>
             <thead>
@@ -215,47 +194,36 @@
 
     <script>
         function fetchProblemStatements() {
-    document.getElementById('home-page').style.display = 'none';
-    document.getElementById('problem-statements').style.display = 'block';
-document.getElementById('problem-statements').scrollTop = 0; // Ensure it resets scrolling
+            document.getElementById('home-page').style.display = 'none';
+            document.getElementById('problem-statements').style.display = 'none';
+            document.getElementById('spinner').style.display = 'block';
 
-    document.getElementById('spinner').style.display = 'block';
+            // Hide images and "Organizing..." text while loading
+            document.querySelectorAll('.hack img').forEach(img => img.style.display = 'none');
+            document.getElementById('organizing-text').style.display = 'none';
 
-    // Hide images and "Organizing..." text while loading
-    document.querySelectorAll('.hack img').forEach(img => {
-        img.style.display = 'none';
-    });
-    document.querySelector('p').style.display = 'none'; // Hide "Organizing..." text
+            fetch('https://script.google.com/macros/s/AKfycbzk14x8iFgS8Z5KfTsQu78GtdSCRONWj7kXAwATavwPmQmM036WTrgWPw5hLz06Qg/exec')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('spinner').style.display = 'none';
+                    document.getElementById('problem-statements').style.display = 'block';
 
-    fetch('https://script.google.com/macros/s/AKfycbzk14x8iFgS8Z5KfTsQu78GtdSCRONWj7kXAwATavwPmQmM036WTrgWPw5hLz06Qg/exec')
-        .then(response => response.json())
-        .then(data => {
+                    let tableBody = document.getElementById('table-body');
+                    tableBody.innerHTML = '';
+                    data.forEach(item => {
+                        let row = `<tr><td>${item.id}</td><td>${item.statement}</td></tr>`;
+                        tableBody.innerHTML += row;
+                    });
+                });
+        }
+
+        function showHome() {
+            document.getElementById('home-page').style.display = 'block';
+            document.getElementById('problem-statements').style.display = 'none';
             document.getElementById('spinner').style.display = 'none';
-            document.getElementById('problem-statements').style.display = 'block';
-
-            let tableBody = document.getElementById('table-body');
-            tableBody.innerHTML = '';
-            data.forEach(item => {
-                let row = `<tr><td>${item.id}</td><td>${item.statement}</td></tr>`;
-                tableBody.innerHTML += row;
-            });
-        });
-}
-
-
-function showHome() {
-    document.getElementById('home-page').style.display = 'block';
-    document.getElementById('problem-statements').style.display = 'none';
-    document.getElementById('spinner').style.display = 'none';
-
-    // Show images and "Organizing..." text again when returning to home
-    document.querySelectorAll('.hack img').forEach(img => {
-        img.style.display = 'block';
-    });
-    document.querySelector('p').style.display = 'block'; // Show "Organizing..." text again
-}
-
-
+            document.querySelectorAll('.hack img').forEach(img => img.style.display = 'block');
+            document.getElementById('organizing-text').style.display = 'block';
+        }
     </script>
 </body>
 </html>
