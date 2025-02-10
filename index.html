@@ -1,336 +1,392 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coders Club</title>
-    <link rel="icon" href="logo1.png" type="image/png">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-        body {
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            overflow: hidden;
-            position: relative;
-            color: #fff;
-            transition: margin-left 0.5s ease-in-out;
-        }
-        .background-video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: -1;
-            filter: brightness(40%);
-        }
-        .container {
-            text-align: center;
-            font-size: 3rem;
-            font-weight: bold;
-            position: relative;
-        }
-        .tagline {
-            font-size: 1.2rem;
-            margin-top: 10px;
-            font-weight: lighter;
-            opacity: 0.8;
-        }
-        .typing {
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Coders Club</title>
+        <link rel="icon" href="logo1.png" type="image/png">
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: 'Poppins', sans-serif;
+            }
+            body {
+                height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                overflow: hidden;
+                position: relative;
+                color: #fff;
+                transition: margin-left 0.5s ease-in-out;
+            }
+            .background-video {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                z-index: -1;
+                filter: brightness(40%);
+            }
+            .container {
+                text-align: center;
+                font-size: 3rem;
+                font-weight: bold;
+                position: relative;
+            }
+            .tagline {
+                font-size: 1.2rem;
+                margin-top: 10px;
+                font-weight: lighter;
+                opacity: 0.8;
+            }
+                    /* Typing Animation */
+                    .typing {
             display: inline-block;
             white-space: nowrap;
             overflow: hidden;
             border-right: 3px solid white;
-            animation: typing 3s steps(12) forwards, blink 0.7s infinite;
+            font-size: 3rem;
         }
-        @keyframes typing {
-            from { width: 0; }
-            to { width: 100%; }
-        }
-        @keyframes blink {
-            50% { border-color: transparent; }
-        }
-        .sidebar {
-            position: fixed;
-            left: -250px;
-            top: 0;
-            width: 250px;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            padding-top: 60px;
-            transition: 0.5s ease-in-out;
-            z-index: 2;
-        }
-        .sidebar a {
-            padding: 15px 25px;
-            display: block;
-            color: white;
-            text-decoration: none;
-            transition: 0.3s;
-            cursor: pointer;
-        }
-        .sidebar a:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-        .menu-btn {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            font-size: 30px;
-            color: white;
-            cursor: pointer;
-            z-index: 3;
-        }
-        .spinner {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            width: 50px;
-            height: 50px;
-            border: 5px solid rgba(255, 255, 255, 0.3);
-            border-top: 5px solid white;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        .problem-statements {
-    display: none;
-    position: absolute;
-    top: 50px;
-    left: 0;
-    width: 100%;
-    height: 80vh;
-    background: rgba(0, 0, 0, 0.8);
-    padding: 20px;
-    border-radius: 10px;
-    overflow: hidden; /* Prevents unwanted horizontal scrolling */
-    color: white;
-}
 
-.table-container {
-    max-height: 70vh; /* Allows proper vertical scrolling */
-    overflow-y: auto; /* Enables vertical scrolling */
-    overflow-x: hidden; /* Stops left-right scrolling */
-    width: 100%;
-}
+            .sidebar {
+                position: fixed;
+                left: -250px;
+                top: 0;
+                width: 250px;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.9);
+                padding-top: 60px;
+                transition: 0.5s ease-in-out;
+                z-index: 2;
+            }
+            .sidebar a {
+                padding: 15px 25px;
+                display: block;
+                color: white;
+                text-decoration: none;
+                transition: 0.3s;
+                cursor: pointer;
+            }
+            .sidebar a:hover {
+                background: rgba(255, 255, 255, 255);
+                color:#000000;
+            }
+            .menu-btn, .close-btn {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        font-size: 30px;
+        color: white;
+        cursor: pointer;
+        z-index: 3;
+    }
 
-.problem-statements {
-    display: none;
-    position: absolute;
-    top: 50px;
-    left: 0;
-    width: 100%;
-    height: 80vh;
-    background: rgba(0, 0, 0, 0.8);
-    padding: 20px;
-    border-radius: 10px;
-    color: white;
-    overflow: hidden; /* Prevent unwanted horizontal scrolling */
-}
-
-.table-container {
-    max-height: 70vh; /* Fixed height for scrolling */
-    overflow-y: auto; /* Enables vertical scrolling */
-    overflow-x: hidden;
-    width: 100%;
-}
-
-.problem-statements table {
-    width: 100%;
-    border-collapse: collapse;
-    table-layout: auto;
-}
-
-.problem-statements th, .problem-statements td {
-    padding: 12px;
-    border: 1px solid white;
-    text-align: center;
-    word-wrap: break-word;
-}
-
-/* Fix ID column width */
-.problem-statements th:first-child,
-.problem-statements td:first-child {
-    width: 10%;
-    min-width: 80px;
-}
-
-/* Give problem statement column more space */
-.problem-statements th:nth-child(2),
-.problem-statements td:nth-child(2) {
-    width: 60%;
-}
-
-/* Sticky header */
-.problem-statements thead {
-    position: sticky;
-    top: 0;
-    background: black;
-    z-index: 2;
-}
-
-/* Mobile Fix */
-@media screen and (max-width: 768px) {
-    .problem-statements {
-        height: 90vh;
-        padding: 10px;
+            .spinner {
+                display: none;
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                width: 50px;
+                height: 50px;
+                border: 5px solid rgba(255, 255, 255, 0.3);
+                border-top: 5px solid white;
+                border-radius: 50%;
+                animation: spin 1s linear infinite;
+            }
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+            .problem-statements {
+        display: none;
+        position: absolute;
+        top: 50px;
+        left: 0;
+        width: 100%;
+        height: 80vh;
+        background: rgba(0, 0, 0, 0.8);
+        padding: 20px;
+        border-radius: 10px;
+        overflow: hidden; /* Prevents unwanted horizontal scrolling */
+        color: white;
     }
 
     .table-container {
-        max-height: 85vh;
+        max-height: 70vh; /* Allows proper vertical scrolling */
+        overflow-y: auto; /* Enables vertical scrolling */
+        overflow-x: hidden; /* Stops left-right scrolling */
+        width: 100%;
+    }
+
+    .problem-statements {
+        display: none;
+        position: absolute;
+        top: 50px;
+        left: 0;
+        width: 100%;
+        height: 80vh;
+        background: rgba(0, 0, 0, 0.8);
+        padding: 20px;
+        border-radius: 10px;
+        color: white;
+        overflow: hidden; /* Prevent unwanted horizontal scrolling */
+    }
+
+    .table-container {
+        max-height: 70vh; /* Fixed height for scrolling */
+        overflow-y: auto; /* Enables vertical scrolling */
+        overflow-x: hidden;
+        width: 100%;
     }
 
     .problem-statements table {
-        font-size: 14px;
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: auto;
     }
 
     .problem-statements th, .problem-statements td {
-        padding: 10px;
+        padding: 12px;
+        border: 1px solid white;
+        text-align: center;
+        word-wrap: break-word;
     }
 
+    /* Fix ID column width */
     .problem-statements th:first-child,
     .problem-statements td:first-child {
-        width: 15%;
+        width: 10%;
+        min-width: 80px;
     }
 
+    /* Give problem statement column more space */
     .problem-statements th:nth-child(2),
     .problem-statements td:nth-child(2) {
-        width: 70%;
+        width: 60%;
+    }
+
+    /* Sticky header */
+    .problem-statements thead {
+        position: sticky;
+        top: 0;
+        background: black;
+        z-index: 2;
+    }
+
+    /* Mobile Fix */
+    @media screen and (max-width: 768px) {
+        .problem-statements {
+            height: 90vh;
+            padding: 10px;
+        }
+
+        .table-container {
+            max-height: 85vh;
+        }
+
+        .problem-statements table {
+            font-size: 14px;
+        }
+
+        .problem-statements th, .problem-statements td {
+            padding: 10px;
+        }
+
+        .problem-statements th:first-child,
+        .problem-statements td:first-child {
+            width: 15%;
+        }
+
+        .problem-statements th:nth-child(2),
+        .problem-statements td:nth-child(2) {
+            width: 70%;
+        }
+    }
+
+
+            .hack img {
+                width: 100%;
+                max-height: 100px;
+            }
+        </style>
+    </head>
+    <body>
+        <video class="background-video" autoplay loop muted>
+            <source src="background.mp4" type="video/mp4">
+        </video>
+        
+        <div class="menu-btn" id="menu-btn" onclick="toggleSidebar()">☰</div>
+    <div class="close-btn" id="close-btn" onclick="toggleSidebar()" style="display: none;">×</div>
+
+
+        <div class="sidebar" id="sidebar">
+            <a href="#" onclick="showHome()">Home</a>
+            <a href="#" onclick="fetchProblemStatements()">Problem Statements</a>
+            <a href="registration.html">Registration</a>
+            <a href="https://docs.google.com/presentation/d/1NyMaKV0AsgwOE9tIDbMo5nE2F0ZzHo-X/edit?usp=sharing&ouid=115793968788464605233&rtpof=true&sd=true">PPT Template Here</a>
+            <a href="#" onclick="showContact()">Contact</a>
+        </div>
+        
+        <div class="hack">
+            <img src="logo1.png">
+        </div>
+        <div class="container" id="home-page">
+            <span class="typing" id="typing-text"></span>
+            <div class="tagline">Innovate. Code. Inspire.</div>
+        </div><br>
+        <p id="organizing-text">Organizing...</p>
+        <div class="hack">
+            <img src="HACKFORGE.png">
+        </div>
+        
+        <div class="spinner" id="spinner"></div>
+
+        <div class="problem-statements" id="problem-statements">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Problem Statement</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body"></tbody>
+            </table>
+        </div>
+
+        <!-- Contact Section -->
+        <div class="contact" id="contact-section" style="display: none; text-align: center; margin-top: 20px;">
+            <h2>Contact Us</h2><br><br>
+            <p><strong>Name:</strong> Rangaraj L, B.Sc Computer Science IIIrd Year</p><br>
+            <p><strong>Phone:</strong> +91 9344132917</p><br>
+            <p><strong>Email:</strong> rangarajlakshmanan@zohomail.in</p>
+        </div>
+
+        <script>
+            let sidebarOpen = false;
+
+function toggleSidebar() {
+    let sidebar = document.getElementById('sidebar');
+    let menuBtn = document.getElementById('menu-btn');
+    let closeBtn = document.getElementById('close-btn');
+
+    if (sidebarOpen) {
+        closeSidebar();
+    } else {
+        sidebar.style.left = "0px";
+        document.body.style.marginLeft = "250px";
+        menuBtn.style.display = "none"; // Hide hamburger menu (☰)
+        closeBtn.style.display = "block"; // Show close button (×)
+        sidebarOpen = true;
     }
 }
 
+function closeSidebar() {
+    let sidebar = document.getElementById('sidebar');
+    let menuBtn = document.getElementById('menu-btn');
+    let closeBtn = document.getElementById('close-btn');
 
-        .hack img {
-            width: 100%;
-            max-height: 100px;
-        }
-    </style>
-</head>
-<body>
-    <video class="background-video" autoplay loop muted>
-        <source src="background.mp4" type="video/mp4">
-    </video>
+    sidebar.style.left = "-250px";
+    document.body.style.marginLeft = "0px";
     
-    <div class="menu-btn" onclick="toggleSidebar()">☰</div>
+    // 🔹 Ensure correct button visibility when sidebar closes
+    setTimeout(() => {
+        menuBtn.style.display = "block"; // Show hamburger menu (☰)
+        closeBtn.style.display = "none"; // Hide close button (×)
+    }, 300); // Small delay to match sidebar animation
 
-    <div class="sidebar" id="sidebar">
-        <a href="#" onclick="showHome()">Home</a>
-        <a href="#" onclick="fetchProblemStatements()">Problem Statements</a>
-        <a href="registration.html">Registration</a>
-        <a href="https://docs.google.com/presentation/d/1NyMaKV0AsgwOE9tIDbMo5nE2F0ZzHo-X/edit?usp=sharing&ouid=115793968788464605233&rtpof=true&sd=true">PPT Template Here</a>
-        <a href="#" onclick="showContact()">Contact</a>
-    </div>
-    
-    <div class="hack">
-        <img src="logo1.png">
-    </div>
-    <div class="container" id="home-page">
-        <span class="typing">Coders Club</span>
-        <div class="tagline">Innovate. Code. Inspire.</div>
-    </div><br>
-    <p id="organizing-text">Organizing...</p>
-    <div class="hack">
-        <img src="HACKFORGE.png">
-    </div>
-    
-    <div class="spinner" id="spinner"></div>
+    sidebarOpen = false;
+}
 
-    <div class="problem-statements" id="problem-statements">
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Problem Statement</th>
-                </tr>
-            </thead>
-            <tbody id="table-body"></tbody>
-        </table>
-    </div>
+// Automatically close the sidebar when clicking outside
+document.addEventListener("click", function (event) {
+    let sidebar = document.getElementById('sidebar');
+    let menuBtn = document.getElementById('menu-btn');
+    let closeBtn = document.getElementById('close-btn');
 
-    <!-- Contact Section -->
-    <div class="contact" id="contact-section" style="display: none; text-align: center; margin-top: 20px;">
-        <h2>Contact Us</h2><br><br>
-        <p><strong>Name:</strong> Rangaraj L, B.Sc Computer Science IIIrd Year</p><br>
-        <p><strong>Phone:</strong> +91 9344132917</p><br>
-        <p><strong>Email:</strong> rangarajlakshmanan@zohomail.in</p>
-    </div>
+    // Check if the click is outside the sidebar and menu button
+    if (sidebarOpen && !sidebar.contains(event.target) && !menuBtn.contains(event.target)) {
+        closeSidebar();
+    }
+});
 
-    <script>
-        let sidebarOpen = false;
 
-        function toggleSidebar() {
-            let sidebar = document.getElementById('sidebar');
-            if (sidebarOpen) {
-                sidebar.style.left = "-250px";
-                document.body.style.marginLeft = "0px";
-            } else {
-                sidebar.style.left = "0px";
-                document.body.style.marginLeft = "250px";
-            }
-            sidebarOpen = !sidebarOpen;
-        }
+            function fetchProblemStatements() {
+                closeSidebar();
+                document.getElementById('home-page').style.display = 'none';
+                document.getElementById('problem-statements').style.display = 'none';
+                document.getElementById('contact-section').style.display = 'none';
+                document.getElementById('spinner').style.display = 'block';
 
-        function closeSidebar() {
-            document.getElementById('sidebar').style.left = "-250px";
-            document.body.style.marginLeft = "0px";
-            sidebarOpen = false;
-        }
+                document.querySelectorAll('.hack img').forEach(img => img.style.display = 'none');
+                document.getElementById('organizing-text').style.display = 'none';
 
-        function fetchProblemStatements() {
-            closeSidebar();
-            document.getElementById('home-page').style.display = 'none';
-            document.getElementById('problem-statements').style.display = 'none';
-            document.getElementById('contact-section').style.display = 'none';
-            document.getElementById('spinner').style.display = 'block';
+                fetch('https://script.google.com/macros/s/AKfycbx2iV4fhPjkDI7aIX6Az6C2vOIdNVX8jNHc9QzKeR7ISWU1KL3UIYq1GUvBwd-JhYrJ/exec')
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('spinner').style.display = 'none';
+                        document.getElementById('problem-statements').style.display = 'block';
 
-            document.querySelectorAll('.hack img').forEach(img => img.style.display = 'none');
-            document.getElementById('organizing-text').style.display = 'none';
-
-            fetch('https://script.google.com/macros/s/AKfycbx2iV4fhPjkDI7aIX6Az6C2vOIdNVX8jNHc9QzKeR7ISWU1KL3UIYq1GUvBwd-JhYrJ/exec')
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('spinner').style.display = 'none';
-                    document.getElementById('problem-statements').style.display = 'block';
-
-                    let tableBody = document.getElementById('table-body');
-                    tableBody.innerHTML = '';
-                    data.forEach(item => {
-                        let row = `<tr><td>${item.id}</td><td>${item.statement}</td></tr>`;
-                        tableBody.innerHTML += row;
+                        let tableBody = document.getElementById('table-body');
+                        tableBody.innerHTML = '';
+                        data.forEach(item => {
+                            let row = `<tr><td>${item.id}</td><td>${item.statement}</td></tr>`;
+                            tableBody.innerHTML += row;
+                        });
                     });
-                });
+            }
+
+            function showHome() {
+                closeSidebar();
+                document.getElementById('home-page').style.display = 'block';
+                document.getElementById('problem-statements').style.display = 'none';
+                document.getElementById('contact-section').style.display = 'none';
+                document.getElementById('spinner').style.display = 'none';
+                document.querySelectorAll('.hack img').forEach(img => img.style.display = 'block');
+                document.getElementById('organizing-text').style.display = 'block';
+            }
+
+            function showContact() {
+                closeSidebar();
+                document.getElementById('home-page').style.display = 'none';
+                document.getElementById('problem-statements').style.display = 'none';
+                document.getElementById('spinner').style.display = 'none';
+                document.getElementById('contact-section').style.display = 'block';
+            }
+            const textElement = document.getElementById("typing-text");
+        const textArray = ["Coders Club"];
+        let textIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        function typeEffect() {
+            const currentText = textArray[textIndex];
+            if (!isDeleting) {
+                textElement.textContent = currentText.substring(0, charIndex);
+                charIndex++;
+                if (charIndex > currentText.length) {
+                    isDeleting = true;
+                    setTimeout(typeEffect, 1500); // Wait before erasing
+                    return;
+                }
+            } else {
+                textElement.textContent = currentText.substring(0, charIndex);
+                charIndex--;
+                if (charIndex === 0) {
+                    isDeleting = false;
+                    setTimeout(typeEffect, 500); // Wait before retyping
+                    return;
+                }
+            }
+            setTimeout(typeEffect, isDeleting ? 50 : 100); // Speed adjustment
         }
 
-        function showHome() {
-            closeSidebar();
-            document.getElementById('home-page').style.display = 'block';
-            document.getElementById('problem-statements').style.display = 'none';
-            document.getElementById('contact-section').style.display = 'none';
-            document.getElementById('spinner').style.display = 'none';
-            document.querySelectorAll('.hack img').forEach(img => img.style.display = 'block');
-            document.getElementById('organizing-text').style.display = 'block';
-        }
-
-        function showContact() {
-            closeSidebar();
-            document.getElementById('home-page').style.display = 'none';
-            document.getElementById('problem-statements').style.display = 'none';
-            document.getElementById('spinner').style.display = 'none';
-            document.getElementById('contact-section').style.display = 'block';
-        }
-    </script>
-</body>
-</html>
+        typeEffect();
+        </script>
+    </body>
+    </html>
