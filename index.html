@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coders Club</title>
+    <link rel="icon" href="logo1.png" type="image/png">
     <style>
         * {
             margin: 0;
@@ -229,6 +230,8 @@
         <a href="#" onclick="showHome()">Home</a>
         <a href="#" onclick="fetchProblemStatements()">Problem Statements</a>
         <a href="registration.html">Registration</a>
+        <a href="https://docs.google.com/presentation/d/1NyMaKV0AsgwOE9tIDbMo5nE2F0ZzHo-X/edit?usp=sharing&ouid=115793968788464605233&rtpof=true&sd=true">PPT Template Here</a>
+        <a href="#" onclick="showContact()">Contact</a>
     </div>
     
     <div class="hack">
@@ -257,6 +260,14 @@
         </table>
     </div>
 
+    <!-- Contact Section -->
+    <div class="contact" id="contact-section" style="display: none; text-align: center; margin-top: 20px;">
+        <h2>Contact Us</h2><br><br>
+        <p><strong>Name:</strong> Rangaraj L, B.Sc Computer Science IIIrd Year</p><br>
+        <p><strong>Phone:</strong> +91 9344132917</p><br>
+        <p><strong>Email:</strong> rangarajlakshmanan@zohomail.in</p>
+    </div>
+
     <script>
         let sidebarOpen = false;
 
@@ -282,12 +293,13 @@
             closeSidebar();
             document.getElementById('home-page').style.display = 'none';
             document.getElementById('problem-statements').style.display = 'none';
+            document.getElementById('contact-section').style.display = 'none';
             document.getElementById('spinner').style.display = 'block';
 
             document.querySelectorAll('.hack img').forEach(img => img.style.display = 'none');
             document.getElementById('organizing-text').style.display = 'none';
 
-            fetch('https://script.google.com/macros/s/AKfycbzk14x8iFgS8Z5KfTsQu78GtdSCRONWj7kXAwATavwPmQmM036WTrgWPw5hLz06Qg/exec')
+            fetch('https://script.google.com/macros/s/AKfycbx2iV4fhPjkDI7aIX6Az6C2vOIdNVX8jNHc9QzKeR7ISWU1KL3UIYq1GUvBwd-JhYrJ/exec')
                 .then(response => response.json())
                 .then(data => {
                     document.getElementById('spinner').style.display = 'none';
@@ -306,9 +318,18 @@
             closeSidebar();
             document.getElementById('home-page').style.display = 'block';
             document.getElementById('problem-statements').style.display = 'none';
+            document.getElementById('contact-section').style.display = 'none';
             document.getElementById('spinner').style.display = 'none';
             document.querySelectorAll('.hack img').forEach(img => img.style.display = 'block');
             document.getElementById('organizing-text').style.display = 'block';
+        }
+
+        function showContact() {
+            closeSidebar();
+            document.getElementById('home-page').style.display = 'none';
+            document.getElementById('problem-statements').style.display = 'none';
+            document.getElementById('spinner').style.display = 'none';
+            document.getElementById('contact-section').style.display = 'block';
         }
     </script>
 </body>
