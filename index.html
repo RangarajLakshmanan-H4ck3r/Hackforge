@@ -106,35 +106,66 @@
             100% { transform: rotate(360deg); }
         }
         .problem-statements {
-            display: none;
-            position: absolute;
-            top: 50px;
-            left: 0;
-            width: 100%;
-            height: 80vh;
-            background: rgba(0, 0, 0, 0.8);
-            padding: 20px;
-            border-radius: 10px;
-            overflow-x: auto;
-            overflow-y: auto;
-            color: white;
-        }
-        .problem-statements table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        .problem-statements th, .problem-statements td {
-            padding: 15px;
-            border: 1px solid white;
-            text-align: center;
-            white-space: nowrap;
-        }
-        .problem-statements th {
-            background: black;
-            position: relative;
-            top: 0;
-            z-index: 1;
-        }
+    display: none;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    width: 100%;
+    height: 80vh;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    overflow: hidden; /* Prevents unwanted horizontal scrolling */
+    color: white;
+}
+
+.table-container {
+    max-height: 70vh; /* Allows proper vertical scrolling */
+    overflow-y: auto; /* Enables vertical scrolling */
+    overflow-x: hidden; /* Stops left-right scrolling */
+    width: 100%;
+}
+
+.problem-statements table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed; /* Prevents the table from expanding too much */
+}
+
+.problem-statements th, .problem-statements td {
+    padding: 12px;
+    border: 1px solid white;
+    text-align: center;
+    word-wrap: break-word; /* Ensures text wraps instead of causing horizontal scroll */
+}
+
+.problem-statements th {
+    background: black;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+/* Mobile fix: Ensures table does not overflow on smaller screens */
+@media screen and (max-width: 768px) {
+    .problem-statements {
+        height: 90vh;
+        padding: 10px;
+    }
+
+    .table-container {
+        max-height: 85vh;
+    }
+
+    .problem-statements table {
+        font-size: 14px; /* Adjusts font size for readability */
+    }
+
+    .problem-statements th, .problem-statements td {
+        padding: 10px;
+    }
+}
+
         .hack img {
             width: 100%;
             max-height: 100px;
