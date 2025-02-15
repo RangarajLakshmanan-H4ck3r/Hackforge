@@ -53,7 +53,7 @@
             border-right: 3px solid white;
             font-size: 3rem;
         }
-
+        
             .sidebar {
                 position: fixed;
                 left: -250px;
@@ -114,7 +114,7 @@
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     z-index: 1000;
-    width: 95%;
+    width: 90%;
     max-height: 70vh; /* Set maximum height */
     overflow: hidden; /* Hide overflow on the main popup */
     border: solid #fff 2px;
@@ -242,13 +242,14 @@
     <div class="close-btn" id="close-btn" onclick="toggleSidebar()" style="display: none;">×</div>
 
 
-        <div class="sidebar" id="sidebar">
-            <a href="#" onclick="showHome()">Home</a>
-            <a href="#" onclick="fetchProblemStatements()">Problem Statements</a>
-            <a href="registration.html">Registration</a>
-            <a href="https://docs.google.com/presentation/d/1NyMaKV0AsgwOE9tIDbMo5nE2F0ZzHo-X/edit?usp=sharing&ouid=115793968788464605233&rtpof=true&sd=true">PPT Template Here</a>
-            <a href="#" onclick="showContact()">Contact</a>
-        </div>
+    <div class="sidebar" id="sidebar">
+        <a href="#" onclick="showHome()">Home</a>
+        <a href="#about" onclick="showHackForge()">About HackForge</a>
+        <a href="#problemstatement" onclick="fetchProblemStatements()">Problem Statements</a>
+        <a href="registration.html">Registration</a>
+        <a href="https://docs.google.com/presentation/d/1NyMaKV0AsgwOE9tIDbMo5nE2F0ZzHo-X/edit?usp=sharing&ouid=115793968788464605233&rtpof=true&sd=true">PPT Template Here</a>
+        <a href="#contact" onclick="showContact()">Contact</a>
+    </div>
         
         <div class="hack">
             <img src="logo1.png">
@@ -279,7 +280,16 @@
             </div>
         </div>
         
-    
+        <div class="hack" id="hackforge-section" style="display: none; flex-direction: column; align-items: center; text-align: center; padding: 20px;">
+
+            <div class="hack-text" style="width: 80%; font-size: 18px; line-height: 1.5; text-align: justify;">
+                <h2 style="text-align: center;">About HackForge</h2><br>
+            <p>The "Hackforge Hackathon" is a dynamic initiative by the "Coders Club", officially registered under the "International Association of Engineers (IAENG)", with the primary goal of inspiring students from the "Department of Computer Science and Information Technology" to participate in prestigious national-level hackathons, such as the "Smart India Hackathon (SIH)". This "24-hour coding competition" provides a platform for students to showcase their technical skills, creativity, and problem-solving abilities by developing "innovative solutions" for some of India’s most pressing societal challenges. The event features "problem statements sourced from SIH 2023 and 2024", ensuring participants engage with real-world issues that require practical and impactful solutions. Through this competition, students will not only refine their technical expertise but also gain hands-on experience in working under pressure, collaborating with peers, and implementing cutting-edge technologies to build functional prototypes.  <br>
+
+                By participating in the "Hackforge Hackathon", students will have the opportunity to "enhance their teamwork, leadership, and critical thinking skills", all of which are essential for succeeding in the tech industry. The event fosters an environment of "healthy competition and innovation", encouraging participants to push their limits and explore new technologies to solve complex challenges. In addition to improving their coding proficiency, students will develop a "deep understanding of industry-relevant problem-solving techniques", making them better equipped for future hackathons and professional opportunities. The hackathon also serves as a stepping stone for students who aspire to compete at the "national and international levels", preparing them to tackle "multifaceted problems" with confidence and efficiency. With an emphasis on practical learning and real-world application, "Hackforge Hackathon" is more than just a competition—it is an experience that equips students with the skills and mindset needed to drive technological advancements and contribute meaningfully to India's development.</p>            </div>
+        
+        </div>
+        
         <!-- Pop-up Container -->
         <div id="popup-container" class="popup">
             <div class="popup-content">
@@ -352,6 +362,7 @@ function fetchProblemStatements() {
     document.getElementById('problem-statements').style.display = 'none';
     document.getElementById('spinner').style.display = 'block';
     document.getElementById('contact-section').style.display = 'none';
+    document.getElementById('hackforge-section').style.display='none';
 
     // Hide images and text
     document.querySelectorAll('.hack img').forEach(img => img.style.display = 'none');
@@ -383,6 +394,7 @@ function showContact() {
     document.getElementById('problem-statements').style.display = 'none';
     document.getElementById('spinner').style.display = 'none';
     document.getElementById('contact-section').style.display = 'block';
+    document.getElementById('hackforge-section').style.display='none';
 
     // Hide images and text
     document.querySelectorAll('.hack img').forEach(img => img.style.display = 'none');
@@ -402,6 +414,7 @@ function showContact() {
                 document.getElementById('home-page').style.display = 'block';
                 document.getElementById('problem-statements').style.display = 'none';
                 document.getElementById('contact-section').style.display = 'none';
+                document.getElementById('hackforge-section').style.display='none';
                 document.getElementById('spinner').style.display = 'none';
                 document.querySelectorAll('.hack img').forEach(img => img.style.display = 'block');
                 document.getElementById('organizing-text').style.display = 'block';
@@ -412,6 +425,39 @@ function showContact() {
         let textIndex = 0;
         let charIndex = 0;
         let isDeleting = false;
+
+        function showHackForge() {
+    // Close sidebar if open
+    closeSidebar();
+
+    // Hide other sections
+    document.getElementById('home-page').style.display = 'none';
+    document.getElementById('problem-statements').style.display = 'none';
+    document.getElementById('contact-section').style.display = 'none';
+    document.querySelectorAll('.hack img').forEach(img => img.style.display = 'none');
+    document.getElementById('organizing-text').style.display = 'none';
+
+
+
+    // Show spinner before displaying hackforge-section
+    document.getElementById('spinner').style.display = 'block';
+
+    // Delay to simulate loading effect
+    setTimeout(() => {
+        document.getElementById('spinner').style.display = 'none';
+        document.getElementById('hackforge-section').style.display = 'flex';
+
+        // Show hack images with smooth transition
+        document.querySelectorAll('.hack-img').forEach(img => {
+            img.style.display = 'block';
+            img.style.opacity = '0';
+            setTimeout(() => img.style.opacity = '1', 200);
+        });
+
+        // Hide organizing text if needed
+        document.getElementById('organizing-text').style.display = 'none';
+    }, 500); // Adjust delay as needed
+}
 
         function typeEffect() {
             const currentText = textArray[textIndex];

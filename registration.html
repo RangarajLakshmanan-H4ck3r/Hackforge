@@ -23,9 +23,6 @@
             z-index: -1;
         }
 
-        p{
-            color:white;
-        }
         .form-container {
             background: rgba(0, 0, 0, 0.8);
             color: white;
@@ -118,7 +115,7 @@
     <video autoplay muted loop id="bgVideo">
         <source src="background.mp4" type="video/mp4">
     </video>
-<!--
+
     <div class="form-container">
         <h2>Team Registration Form</h2>
         <form id="registrationForm">
@@ -186,6 +183,27 @@
                 <option value="2">2</option>
                 <option value="3">3</option>
             </select>
+         
+            <h3>Participant 3</h3>
+            <input type="text" id="participant3Name" placeholder="Name" required>
+            <input type="text" id="participant3Reg" placeholder="Register Number" required>
+            <select id="participant3Dept" required>
+                <option value="" disabled selected>Department</option>
+                <option value="B.Sc">B.Sc</option>
+                <option value="M.Sc">M.Sc</option>
+            </select>
+            <select id="participant3Stream" required>
+                <option value="" disabled selected>Stream</option>
+                <option value="Computer Science">Computer Science</option>
+                <option value="Information Technology">Information Technology</option>
+                <option value="Data Science">Data Science</option>
+            </select>
+            <select id="participant3Year" required>
+                <option value="" disabled selected>Year</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select>
 
             <h3>Contact</h3>
             <input type="email" id="teamLeaderEmail" placeholder="Team Leader Email" required>
@@ -199,8 +217,7 @@
             <div class="spinner" id="loadingSpinner"></div>
             <button type="submit">Submit</button>
         </form>
-    </div>-->
-    <p>Registration opens soon...</p>
+    </div>
     <center><a href="index.html" class="back-button">Back to Home</a></center><br><br>
 
     <script>
@@ -243,6 +260,11 @@ window.onload = loadProblemStatements;
                 participant2Dept: document.getElementById("participant2Dept").value,
                 participant2Stream: document.getElementById("participant2Stream").value,
                 participant2Year: document.getElementById("participant2Year").value,
+                participant3Name: document.getElementById("participant3Name").value,
+                participant3Reg: document.getElementById("participant3Reg").value,
+                participant3Dept: document.getElementById("participant3Dept").value,
+                participant3Stream: document.getElementById("participant3Stream").value,
+                participant3Year: document.getElementById("participant3Year").value,
                 teamLeaderEmail: document.getElementById("teamLeaderEmail").value,
                 teamLeaderPhone: document.getElementById("teamLeaderPhone").value,
                 problemStatement: document.getElementById("problemStatement").value
