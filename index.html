@@ -469,11 +469,12 @@ function showGallery() {
 function showContact() {
     closeSidebar();
     document.getElementById('home-page').style.display = 'none';
-    document.getElementById("gallery").style.display = "none";
     document.getElementById('problem-statements').style.display = 'none';
     document.getElementById('spinner').style.display = 'none';
     document.getElementById('contact-section').style.display = 'block';
     document.getElementById('hackforge-section').style.display='none';
+    document.getElementById("gallery-section").style.display = "none"; // Show gallery
+
 
     // Hide images and text
     document.querySelectorAll('.hack img').forEach(img => img.style.display = 'none');
@@ -495,7 +496,7 @@ function showContact() {
                 document.getElementById('contact-section').style.display = 'none';
                 document.getElementById('hackforge-section').style.display='none';
                 document.getElementById('spinner').style.display = 'none';
-                document.getElementById("gallery").style.display = "none";
+                document.getElementById("gallery-section").style.display = "none"; // Show gallery
                 document.querySelectorAll('.hack img').forEach(img => img.style.display = 'block');
                 document.getElementById('organizing-text').style.display = 'block';
             }
@@ -514,9 +515,10 @@ function showContact() {
     document.getElementById('home-page').style.display = 'none';
     document.getElementById('problem-statements').style.display = 'none';
     document.getElementById('contact-section').style.display = 'none';
-    document.getElementById("gallery").style.display = "none";
+    document.getElementById("gallery-section").style.display = "none"; // Show gallery
     document.querySelectorAll('.hack img').forEach(img => img.style.display = 'none');
     document.getElementById('organizing-text').style.display = 'none';
+
 
 
 
