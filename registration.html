@@ -76,6 +76,16 @@
             margin: 10px auto;
         }
 
+        img{
+            width: 50%;
+    height: 50%;
+
+        }
+        .image-container {
+    text-align: center;
+    margin-top: 10px;
+}
+
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
@@ -214,6 +224,13 @@
                 <option value="" disabled selected>Loading...</option>
             </select>
 
+            <h3>Payment</h3>
+            <div class="image-container">
+                <img src="payment.jpg" alt="Payment QR">
+            </div>
+            <input type="text" id="transactionID" placeholder="Transaction ID" required>
+            
+
             <div class="spinner" id="loadingSpinner"></div>
             <button type="submit">Submit</button>
         </form>
@@ -267,7 +284,8 @@ window.onload = loadProblemStatements;
                 participant3Year: document.getElementById("participant3Year").value,
                 teamLeaderEmail: document.getElementById("teamLeaderEmail").value,
                 teamLeaderPhone: document.getElementById("teamLeaderPhone").value,
-                problemStatement: document.getElementById("problemStatement").value
+                problemStatement: document.getElementById("problemStatement").value,
+                transactionID: document.getElementById("transactionID").value
             };
 
             fetch("https://script.google.com/macros/s/AKfycbx2iV4fhPjkDI7aIX6Az6C2vOIdNVX8jNHc9QzKeR7ISWU1KL3UIYq1GUvBwd-JhYrJ/exec", {

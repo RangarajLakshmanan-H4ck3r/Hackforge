@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HackForge Club</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
+        
+        body {
+            margin: 0;
+            font-family: 'Orbitron', sans-serif;
+            overflow-x: hidden;
+            background-color: #000;
+            color: #0f0;
+        }
+        .section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+        #home {
+            flex-direction: column;
+            background: radial-gradient(circle, rgba(0, 0, 0, 1) 30%, rgba(0, 255, 0, 0.2) 100%);
+            color: white;
+            animation: fadeIn 2s ease-in;
+            position: relative;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        #home img {
+            width: 200px;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite alternate;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
+        
+        .typing {
+            font-size: 2em;
+            font-weight: bold;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 3px solid #0f0;
+            width: 0;
+            animation: typing 4s steps(30, end) forwards, blink 0.75s step-end infinite;
+        }
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        @keyframes blink {
+            50% { border-color: transparent; }
+        }
+        
+        .tagline {
+            font-size: 1.5em;
+            margin-top: 10px;
+            color: #ffcc00;
+            animation: flicker 1.5s infinite alternate;
+        }
+        @keyframes flicker {
+            0% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+        
+        #about {
+            display: flex;
+            background: #111;
+            padding: 50px;
+            color: white;
+            transform: translateY(100px);
+            opacity: 0;
+            animation: slideIn 1s ease-in-out forwards;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(100px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .about-left, .about-right {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .about-left {
+            text-align: left;
+            padding: 20px;
+        }
+        .about-right img {
+            width: 80%;
+            border-radius: 10px;
+            animation: glow 2s infinite alternate;
+        }
+        @keyframes glow {
+            0% { box-shadow: 0 0 10px #0f0; }
+            100% { box-shadow: 0 0 20px #0f0; }
+        }
+        
+        /* Background animation */
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            background: url('https://www.transparenttextures.com/patterns/dark-matter.png');
+            animation: moveBackground 10s infinite linear;
+        }
+        @keyframes moveBackground {
+            from { transform: translateY(0); }
+            to { transform: translateY(-100px); }
+        }
+    </style>
+</head>
+<body>
+    <div id="home" class="section">
+        <div class="particles"></div>
+        <img src="logo.png" alt="HackForge Logo">
+        <div class="typing">Welcome to HackForge</div>
+        <img src="hackforge-image.png" alt="HackForge" style="width: 300px; margin-top: 20px; animation: bounce 2s infinite;">
+        <div class="tagline">"Organizing the Future of Cybersecurity"</div>
+    </div>
+    
+    <div id="about" class="section">
+        <div class="about-left">
+            <h2>About the Club</h2>
+            <p>HackForge is a community of cybersecurity enthusiasts passionate about ethical hacking, network security, and digital forensics. Our mission is to educate and inspire the next generation of cybersecurity professionals.</p>
+        </div>
+        <div class="about-right">
+            <img src="club-image.jpg" alt="About HackForge">
+        </div>
+    </div>
+</body>
+</html>
