@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Select Problem Statement</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: black;
+      color: white;
+      overflow: hidden;
+    }
+    video {
+      position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+    }
+    .container {
+      position: relative;
+      width: 80%;
+      max-width: 600px;
+      margin: 100px auto;
+      background: rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+      text-align: center;
+    }
+    h2 {
+      color: #0f0;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    input {
+      width: 97%;
+      padding: 10px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    input, select {
+      background: #ffffff;
+      color: rgb(0, 0, 0);
+    }
+    button {
+      background: #0f0;
+      color: black;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #090;
+    }
+    select {
+      appearance: none;
+      background: linear-gradient(45deg, #ffffff, #0f0);
+      padding: 12px;
+      font-weight: bold;
+    }
+    select:hover {
+      background: linear-gradient(45deg, #ffffff, #0c0);
+    }
+    @media (max-width: 600px) {
+      .container {
+        width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <video autoplay loop muted>
+    <source src="background.mp4" type="video/mp4">
+  </video>
+  <div class="container">
+    <h2>Select a Problem Statement</h2>
+    <label>Team Name:</label>
+    <input type="text" id="teamName" required><br><br>
+    <label>Select Problem Statement:</label>
+    <select id="problemDropdown">
+      <option value="">-- Select --</option>
+    </select><br><br>
+    <button onclick="submitSelection()">Submit</button>
+  </div>
+  <script>
+    const API_URL = "https://script.google.com/macros/s/AKfycbwiqGOpNj6b5QS-DQbGXYs80kkp3lAoyI7GWgA0ayFgJS1TU4k00n3LcfEA2-y1Tip02A/exec";
+    let existingTeams = new Set();
+    async function loadData() {
+      try {
+        const response = await fetch(API_URL);
+        const data = await response.json();
+        if (data.problems) {
+          let dropdown = document.getElementById("problemDropdown");
+          dropdown.innerHTML = '<option value="">-- Select --</option>';
+          data.problems.forEach(problem => {
+            let option = document.createElement("option");
+            option.value = problem;
+            option.textContent = problem;
+            dropdown.appendChild(option);
+          });
+        }
+        if (data.teams) {
+          existingTeams = new Set(data.teams);
+        }
+      } catch (error) {
+        console.error("Error loading data:", error);
+        alert("Failed to load data. Check API URL and permissions.");
+      }
+    }
+    async function submitSelection() {
+      const teamName = document.getElementById("teamName").value.trim();
+      const problemStatement = document.getElementById("problemDropdown").value;
+      if (!teamName || !problemStatement) {
+        alert("Please enter a team name and select a problem statement.");
+        return;
+      }
+      if (existingTeams.has(teamName)) {
+        alert("You have already chosen your problem statement and cannot change it.");
+        return;
+      }
+      const formData = new URLSearchParams();
+      formData.append("teamName", teamName);
+      formData.append("problemStatement", problemStatement);
+      try {
+        const response = await fetch(API_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: formData
+        });
+        const result = await response.json();
+        alert(result.message);
+        if (result.message === "Submission successful!") {
+          existingTeams.add(teamName);
+          document.getElementById("teamName").value = "";
+          document.getElementById("problemDropdown").value = "";
+        }
+      } catch (error) {
+        console.error("Error submitting selection:", error);
+        alert("Submission error. Check API URL and Google Sheets permissions.");
+      }
+    }
+    window.onload = loadData;
+  </script>
+</body>
+</html>
