@@ -319,7 +319,8 @@ window.onload = loadProblemStatements;
                 body: JSON.stringify(formData)
             }).then(() => {
                 document.getElementById("loadingSpinner").style.display = "none";
-                alert("Registration Successful!");
+                alert("Registration successful!");
+window.location.reload();
             });
         });
     </script>
