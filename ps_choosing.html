@@ -95,64 +95,87 @@
     <button onclick="submitSelection()">Submit</button>
   </div>
   <script>
-    const API_URL = "https://script.google.com/macros/s/AKfycbwiqGOpNj6b5QS-DQbGXYs80kkp3lAoyI7GWgA0ayFgJS1TU4k00n3LcfEA2-y1Tip02A/exec";
-    let existingTeams = new Set();
-    async function loadData() {
-      try {
-        const response = await fetch(API_URL);
-        const data = await response.json();
-        if (data.problems) {
-          let dropdown = document.getElementById("problemDropdown");
-          dropdown.innerHTML = '<option value="">-- Select --</option>';
-          data.problems.forEach(problem => {
-            let option = document.createElement("option");
-            option.value = problem;
-            option.textContent = problem;
-            dropdown.appendChild(option);
-          });
-        }
-        if (data.teams) {
-          existingTeams = new Set(data.teams);
-        }
-      } catch (error) {
-        console.error("Error loading data:", error);
-        alert("Failed to load data. Check API URL and permissions.");
-      }
+        const API_URL = "https://script.google.com/macros/s/AKfycbwiqGOpNj6b5QS-DQbGXYs80kkp3lAoyI7GWgA0ayFgJS1TU4k00n3LcfEA2-y1Tip02A/exec";
+        let existingTeams = new Set();
+        let selectedProblems = new Set(); // Store problems chosen by participants
+
+async function loadData() {
+  try {
+    const response = await fetch(API_URL);
+    const data = await response.json();
+
+    let dropdown = document.getElementById("problemDropdown");
+    dropdown.innerHTML = '<option value="">-- Select --</option>';
+
+    selectedProblems.clear(); // Reset selection tracking
+
+    if (data.teams && data.problems) {
+      data.teams.forEach((_, index) => selectedProblems.add(data.problems[index]));
     }
-    async function submitSelection() {
-      const teamName = document.getElementById("teamName").value.trim();
-      const problemStatement = document.getElementById("problemDropdown").value;
-      if (!teamName || !problemStatement) {
-        alert("Please enter a team name and select a problem statement.");
-        return;
-      }
-      if (existingTeams.has(teamName)) {
-        alert("You have already chosen your problem statement and cannot change it.");
-        return;
-      }
-      const formData = new URLSearchParams();
-      formData.append("teamName", teamName);
-      formData.append("problemStatement", problemStatement);
-      try {
-        const response = await fetch(API_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: formData
-        });
-        const result = await response.json();
-        alert(result.message);
-        if (result.message === "Submission successful!") {
-          existingTeams.add(teamName);
-          document.getElementById("teamName").value = "";
-          document.getElementById("problemDropdown").value = "";
-          window.location.href = "index.html";
-        }
-      } catch (error) {
-        console.error("Error submitting selection:", error);
-        alert("Submission error.");
-      }
+
+    data.problems.forEach(problem => {
+      let option = document.createElement("option");
+      option.value = problem;
+      option.textContent = problem;
+      dropdown.appendChild(option);
+    });
+  } catch (error) {
+    console.error("Error loading data:", error);
+    alert("Failed to load data.");
+  }
+}
+
+async function submitSelection() {
+  const teamName = document.getElementById("teamName").value.trim();
+  const problemStatement = document.getElementById("problemDropdown").value;
+
+  if (!teamName || !problemStatement) {
+    alert("Please enter a team name and select a problem statement.");
+    return;
+  }
+
+  if (selectedProblems.has(problemStatement)) {
+    alert("You team already chosen the problem. You cannot change it.");
+    return;
+  }
+
+  const formData = new URLSearchParams();
+  formData.append("teamName", teamName);
+  formData.append("problemStatement", problemStatement);
+
+  try {
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: formData
+    });
+
+    const result = await response.json();
+    alert(result.message);
+
+    if (result.message === "Submission successful!") {
+      selectedProblems.add(problemStatement); // Hide only the chosen one
+      document.getElementById("teamName").value = "";
+      document.getElementById("problemDropdown").value = "";
+      hideSelectedProblem(problemStatement); // Remove only the selected problem
     }
-    window.onload = loadData;
-  </script>
+  } catch (error) {
+    console.error("Error submitting selection:", error);
+    alert("Submission error");
+  }
+}
+
+function hideSelectedProblem(problem) {
+  let dropdown = document.getElementById("problemDropdown");
+  for (let i = 0; i < dropdown.options.length; i++) {
+    if (dropdown.options[i].value === problem) {
+      dropdown.options[i].remove();
+      break;
+    }
+  }
+}
+        
+        window.onload = loadData;
+      </script>
 </body>
 </html>
