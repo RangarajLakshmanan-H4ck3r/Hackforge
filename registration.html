@@ -254,7 +254,6 @@
                     <li>You will receive a confirmation email once your registration have been verified.</li>
                     <li>The problem statement will be published in the official website before the day of the hackathon. Participants can choose their problem statement.</li>
                     <li>The selected problem statement will be sent to your registered email ID.</li>
-                    <li>Once registered, participants must appear for the hackathon. The registration amount is non-refundable.</li>
                     <li>Registered students will receive their online webinar link via email. Registered participants must attend the webinar.</li>
                 </ul>
                 
@@ -262,7 +261,7 @@
             <p>This app is under maintenance. For any queries, contact the admin. </p> 
 
             <div class="spinner" id="loadingSpinner"></div>
-        <!--  <button type="submit">Submit</button> -->
+        <button type="submit">Submit</button> 
         </form>
     </div>
     <center><a href="index.html" class="back-button">Back to Home</a></center><br><br>
@@ -313,8 +312,7 @@ window.onload = loadProblemStatements;
                 participant3Stream: document.getElementById("participant3Stream").value,
                 participant3Year: document.getElementById("participant3Year").value,
                 teamLeaderEmail: document.getElementById("teamLeaderEmail").value,
-                teamLeaderPhone: document.getElementById("teamLeaderPhone").value,
-                transactionID: document.getElementById("transactionID").value
+                teamLeaderPhone: document.getElementById("teamLeaderPhone").value
             };
 
             fetch("https://script.google.com/macros/s/AKfycbx2iV4fhPjkDI7aIX6Az6C2vOIdNVX8jNHc9QzKeR7ISWU1KL3UIYq1GUvBwd-JhYrJ/exec", {
