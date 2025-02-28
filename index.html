@@ -103,18 +103,22 @@
                 transition: 0.5s ease-in-out;
                 z-index: 2;
             }
-            .sidebar a {
-                padding: 15px 25px;
-                display: block;
-                color: white;
-                text-decoration: none;
-                transition: 0.3s;
-                cursor: pointer;
-            }
-            .sidebar a:hover {
-                background: rgba(255, 255, 255, 255);
-                color:#000000;
-            }
+                        .sidebar a {
+    display: block; /* Ensures full width */
+    padding: 15px 25px;
+    color: white;
+    text-decoration: none;
+    transition: background 0.3s, color 0.3s;
+    cursor: pointer;
+    width: 100%; /* Ensures hover effect extends fully */
+    text-align: left; /* Aligns text properly */
+}
+
+.sidebar a:hover {
+    background: rgba(255, 255, 255, 1); /* Fully visible hover effect */
+    color: black;
+}
+
             .menu-btn, .close-btn {
         position: fixed;
         top: 20px;
@@ -292,12 +296,12 @@
     <div class="sidebar" id="sidebar">
         <a href="#" onclick="showHome()">Home</a>
         <a href="#about" onclick="showHackForge()">About HackForge</a>
-     <!--   <a href="#problemstatement" onclick="fetchProblemStatements()" style="display: inline-flex; align-items: center; gap: 5px; white-space: nowrap;">
+       <a href="#problemstatement" onclick="fetchProblemStatements()" style="display: inline-flex; align-items: center; gap: 5px; white-space: nowrap;">
             Problem Statements 
         <img src="new.gif" alt="New" style="width: 40px; height: 40px;">
             <a href="ps_choosing.html" style="display: inline-flex; align-items: center; gap: 5px; white-space: nowrap;">
             Choose Problem
-        <img src="new.gif" alt="New" style="width: 40px; height: 40px;">-->
+        <img src="new.gif" alt="New" style="width: 40px; height: 40px;">
         <a href="registration.html">Registration</a>
         <a href="#gallery" onclick="showGallery()">Gallery</a>
         <a href="#contact" onclick="showContact()">Contact</a>
