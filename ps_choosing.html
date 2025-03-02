@@ -23,17 +23,19 @@
     }
     .container {
       position: relative;
-      width: 80%;
-      max-width: 600px;
-      margin: 100px auto;
-      background: rgba(0, 0, 0, 0.8);
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+      width: 90%;
+      max-width: 500px;
+      margin: 12vh auto;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0, 255, 0, 0.6);
       text-align: center;
+      border: 2px solid rgba(0, 255, 0, 0.5);
+      backdrop-filter: blur(8px);
     }
     h2 {
-      color: #0f0;
+      color: rgb(255, 255, 255);
     }
     input {
       width: 96%;
@@ -43,7 +45,7 @@
       border-radius: 5px;
       font-size: 16px;
     }
-    select, button {
+     select, button {
       width: 100%;
       padding: 10px;
       margin: 10px 0;
@@ -53,7 +55,7 @@
     }
     input, select {
       background: #ffffff;
-      color: rgb(0, 0, 0);
+      color: black;
     }
     button {
       background: #0f0;
@@ -72,6 +74,59 @@
     }
     select:hover {
       background: linear-gradient(45deg, #ffffff, #0c0);
+    }
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .modal-content {
+      background: rgba(0, 0, 0, 0.9);
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(0, 255, 0, 0.6);
+      width: 90%;
+      max-width: 400px;
+    }
+    .modal-content p {
+      color: white;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+    .modal-buttons {
+      display: flex;
+      justify-content: space-between;
+    }
+    .modal-buttons button {
+      width: 45%;
+      padding: 10px;
+      font-size: 14px;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+    }
+    .confirm {
+      background: #0f0;
+      color: black;
+    }
+    .confirm:hover {
+      background: #090;
+    }
+    .cancel {
+      background: #f00;
+      color: white;
+    }
+    .cancel:hover {
+      background: #d00;
     }
     /* Loading Screen */
     .loading-screen {
@@ -115,7 +170,6 @@
   <video autoplay loop muted>
     <source src="background.mp4" type="video/mp4">
   </video>
-
   <!-- Loading Screen (Initially Hidden) -->
   <div class="loading-screen" id="loadingScreen">
     Submitting... Please wait
@@ -130,97 +184,57 @@
     <select id="problemDropdown">
       <option value="">-- Select --</option>
     </select><br><br>
-    <button onclick="submitSelection()">Submit</button>
+    <button onclick="showModal()">Submit</button>
+  </div>
+
+  <!-- Modal Popup -->
+  <div class="modal" id="confirmationModal">
+    <div class="modal-content">
+      <p>Once you choose your problem statement, you can't change it. Are you sure to submit?</p>
+      <div class="modal-buttons">
+        <button class="confirm" onclick="submitSelection()">OK</button>
+        <button class="cancel" onclick="closeModal()">Cancel</button>
+      </div>
+    </div>
   </div>
 
   <script>
     const API_URL = "https://script.google.com/macros/s/AKfycbwiqGOpNj6b5QS-DQbGXYs80kkp3lAoyI7GWgA0ayFgJS1TU4k00n3LcfEA2-y1Tip02A/exec";
     let existingTeams = new Set();
     let selectedProblems = new Set();
-
+  
     async function loadData() {
       try {
         const response = await fetch(API_URL);
         const data = await response.json();
-
+  
         let dropdown = document.getElementById("problemDropdown");
         dropdown.innerHTML = '<option value="">-- Select --</option>';
-
+  
         existingTeams.clear();
         selectedProblems.clear();
-
+  
         if (data.teams && data.problems) {
           data.teams.forEach((team, index) => {
             existingTeams.add(team.toLowerCase());
             selectedProblems.add(data.problems[index]);
           });
         }
-
+  
         data.problems.forEach(problem => {
-          let option = document.createElement("option");
-          option.value = problem;
-          option.textContent = problem;
-          dropdown.appendChild(option);
+          if (!selectedProblems.has(problem)) {  // Prevent adding already selected problems
+            let option = document.createElement("option");
+            option.value = problem;
+            option.textContent = problem;
+            dropdown.appendChild(option);
+          }
         });
       } catch (error) {
         console.error("Error loading data:", error);
         alert("Failed to load data.");
       }
     }
-
-    async function submitSelection() {
-      const teamName = document.getElementById("teamName").value.trim();
-      const problemStatement = document.getElementById("problemDropdown").value;
-      const loadingScreen = document.getElementById("loadingScreen");
-
-      if (!teamName || !problemStatement) {
-        alert("Please enter a team name and select a problem statement.");
-        return;
-      }
-
-      if (existingTeams.has(teamName.toLowerCase())) {
-        alert("This team name has already been used.");
-        return;
-      }
-
-      if (selectedProblems.has(problemStatement)) {
-        alert("This problem has already been chosen. You cannot change it.");
-        return;
-      }
-
-      // Show loading screen before submission
-      loadingScreen.style.display = "flex";
-
-      const formData = new URLSearchParams();
-      formData.append("teamName", teamName);
-      formData.append("problemStatement", problemStatement);
-
-      try {
-        const response = await fetch(API_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: formData
-        });
-
-        const result = await response.json();
-        alert(result.message);
-
-        if (result.message === "Submission successful!") {
-          existingTeams.add(teamName.toLowerCase());
-          selectedProblems.add(problemStatement);
-          document.getElementById("teamName").value = "";
-          document.getElementById("problemDropdown").value = "";
-          hideSelectedProblem(problemStatement);
-        }
-      } catch (error) {
-        console.error("Error submitting selection:", error);
-        alert("Submission error.");
-      } finally {
-        // Hide loading screen after submission is complete
-        loadingScreen.style.display = "none";
-      }
-    }
-
+  
     function hideSelectedProblem(problem) {
       let dropdown = document.getElementById("problemDropdown");
       for (let i = 0; i < dropdown.options.length; i++) {
@@ -230,8 +244,76 @@
         }
       }
     }
+  
+    function showModal() {
+      const teamName = document.getElementById("teamName").value.trim();
+      const problemStatement = document.getElementById("problemDropdown").value;
+      const loadingScreen = document.getElementById("loadingScreen");
+  
+      if (!teamName || !problemStatement) {
+        alert("Please enter a team name and select a problem statement.");
+        return;
+      }
+  
+      if (existingTeams.has(teamName.toLowerCase())) {
+        alert("This team name has already been used. Please choose a different name.");
+        return;
+      }
+  
+      if (selectedProblems.has(problemStatement)) {
+        alert("This problem has already been chosen. You cannot change it.");
+        return;
+      }
+  
+      document.getElementById("confirmationModal").style.display = "flex";
+    }
+  
+    function closeModal() {
+      document.getElementById("confirmationModal").style.display = "none";
+    }
+  
+    async function submitSelection() {
+  closeModal();
 
+  const teamName = document.getElementById("teamName").value.trim();
+  const problemStatement = document.getElementById("problemDropdown").value;
+  const loadingScreen = document.getElementById("loadingScreen");
+
+  // Show loading screen
+  loadingScreen.style.display = "flex";
+
+  const formData = new URLSearchParams();
+  formData.append("teamName", teamName);
+  formData.append("problemStatement", problemStatement);
+
+  try {
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: formData
+    });
+
+    const result = await response.json();
+    alert(result.message);
+
+    if (result.message === "Submission successful!") {
+      existingTeams.add(teamName.toLowerCase());
+      selectedProblems.add(problemStatement);
+      hideSelectedProblem(problemStatement);
+      document.getElementById("teamName").value = "";
+      document.getElementById("problemDropdown").value = "";
+    }
+  } catch (error) {
+    console.error("Error submitting selection:", error);
+    alert("Submission error.");
+  } finally {
+    // Hide loading screen after submission
+    loadingScreen.style.display = "none";
+  }
+}
+  
     window.onload = loadData;
   </script>
+  
 </body>
 </html>
