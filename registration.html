@@ -149,121 +149,112 @@
     </video>
 
     <div class="form-container"> 
-       <center> <p style="font-size:12px;">Registration has been completed. No further entries will be accepted.</p></center><!--
         <h2>Team Registration Form</h2>
        <Center> <p style="font-size:12px;">Registration for third-year students is no longer available.</p> </Center>
         <form id="registrationForm">
             <input type="text" id="teamName" placeholder="Team Name" required>
-
+        
             <h3>Team Leader</h3>
             <input type="text" id="teamLeaderReg" placeholder="Register Number" required>
             <input type="text" id="teamLeaderName" placeholder="Name" required>
             <select id="teamLeaderDept" required>
                 <option value="" disabled selected>Department</option>
                 <option value="B.Sc">B.Sc</option>
-               <option value="M.Sc" >M.Sc</option> 
+                <!-- <option value="M.Sc">M.Sc</option> -->
             </select>
             <select id="teamLeaderStream" required>
                 <option value="" disabled selected>Stream</option>
                 <option value="Computer Science">Computer Science</option>
                 <option value="Information Technology">Information Technology</option>
-                <!--  <option value="Data Science"  >Data Science</option> 
+                <!-- <option value="Data Science">Data Science</option> -->
             </select>
             <select id="teamLeaderYear" required>
                 <option value="" disabled selected>Year</option>
-               <!-- <option value="1" >1</option>
-                <option value="2" >2</option> 
                 <option value="2">2</option>
+                <!-- <option value="1">1</option> -->
+                <!-- <option value="3">3</option> -->
             </select>
-
+        
             <h3>Participant 1</h3>
             <input type="text" id="participant1Name" placeholder="Name" required>
             <input type="text" id="participant1Reg" placeholder="Register Number" required>
             <select id="participant1Dept" required>
                 <option value="" disabled selected>Department</option>
                 <option value="B.Sc">B.Sc</option>
-                <!-- <option value="M.Sc" >M.Sc</option> 
+                <!-- <option value="M.Sc">M.Sc</option> -->
             </select>
             <select id="participant1Stream" required>
                 <option value="" disabled selected>Stream</option>
                 <option value="Computer Science">Computer Science</option>
                 <option value="Information Technology">Information Technology</option>
-                <!--  <option value="Data Science"  >Data Science</option> 
+                <!-- <option value="Data Science">Data Science</option> -->
             </select>
             <select id="participant1Year" required>
                 <option value="" disabled selected>Year</option>
-                 <!-- <option value="1" >1</option>
-                <option value="2" >2</option> 
                 <option value="2">2</option>
+                <!-- <option value="1">1</option> -->
+                <!-- <option value="3">3</option> -->
             </select>
-
+        
             <h3>Participant 2</h3>
-            <input type="text" id="participant2Name" placeholder="Name" >
-            <input type="text" id="participant2Reg" placeholder="Register Number" >
-            <select id="participant2Dept" >
+            <input type="text" id="participant2Name" placeholder="Name" required>
+            <input type="text" id="participant2Reg" placeholder="Register Number" required>
+            <select id="participant2Dept" required>
                 <option value="" disabled selected>Department</option>
                 <option value="B.Sc">B.Sc</option>
-                <!-- <option value="M.Sc" >M.Sc</option> 
+                <!-- <option value="M.Sc">M.Sc</option> -->
             </select>
-            <select id="participant2Stream" >
+            <select id="participant2Stream" required>
                 <option value="" disabled selected>Stream</option>
                 <option value="Computer Science">Computer Science</option>
                 <option value="Information Technology">Information Technology</option>
-                <!--  <option value="Data Science"  >Data Science</option>
+                <!-- <option value="Data Science">Data Science</option> -->
             </select>
-            <select id="participant2Year" >
+            <select id="participant2Year" required>
                 <option value="" disabled selected>Year</option>
-                 <!-- <option value="1" >1</option>
-                <option value="2" >2</option> 
-                <option value="2" >2</option>
+                <option value="2">2</option>
+                <!-- <option value="1">1</option> -->
+                <!-- <option value="3">3</option> -->
             </select>
          
             <h3>Participant 3</h3>
-            <input type="text" id="participant3Name" placeholder="Name" >
-            <input type="text" id="participant3Reg" placeholder="Register Number" >
-            <select id="participant3Dept" >
+            <input type="text" id="participant3Name" placeholder="Name" required>
+            <input type="text" id="participant3Reg" placeholder="Register Number" required>
+            <select id="participant3Dept" required>
                 <option value="" disabled selected>Department</option>
                 <option value="B.Sc">B.Sc</option>
-                <!-- <option value="M.Sc" >M.Sc</option> 
+                <!-- <option value="M.Sc">M.Sc</option> -->
             </select>
-            <select id="participant3Stream" >
+            <select id="participant3Stream" required>
                 <option value="" disabled selected>Stream</option>
                 <option value="Computer Science">Computer Science</option>
                 <option value="Information Technology">Information Technology</option>
-              <!--  <option value="Data Science"  >Data Science</option> 
+                <!-- <option value="Data Science">Data Science</option> -->
             </select>
-            <select id="participant3Year" >
+            <select id="participant3Year" required>
                 <option value="" disabled selected>Year</option>
-                 <!-- <option value="1" >1</option>
-                <option value="2" >2</option> 
                 <option value="2">2</option>
+                <!-- <option value="1">1</option> -->
+                <!-- <option value="3">3</option> -->
             </select>
-
+        
             <h3>Contact</h3>
             <input type="email" id="teamLeaderEmail" placeholder="Team Leader Email" required>
             <input type="tel" id="teamLeaderPhone" placeholder="Team Leader Phone" required>
-
-
-         <!--   <h3>Payment</h3>
-            <div class="image-container">
-                <img src="payment.png" alt="Payment QR"> 
-                <p>Rs.300 Per Head</p>
-            </div>
-            <input type="text" id="transactionID" placeholder="Transaction ID" required> 
+    
+            
             <h3>Terms and Conditions</h3>
             <div class="terms-container">
                 <ul>
-                    <li>You will receive a confirmation email once your registration have been verified.</li>
-                    <li>The problem statement will be published in the official website before the day of the hackathon. Participants can choose their problem statement.</li>
-                    <li>The selected problem statement will be sent to your registered email ID.</li>
-                    <li>Registered students will receive their online webinar link via email. Registered participants must attend the webinar.</li>
+                    <li>Problem statements are given on the website. Each team will be assigned a unique problem statement by the organizers the day before the hackathon. Participants cannot choose their own problem statement.</li>
+                    <li>The problem statement will be sent to your registered email ID.</li>
+                    <li>Once registered, participants must appear for the hackathon. The registration amount is non-refundable.</li>
+                    <li>Registered students will receive their online webinar link via email.</li>
                 </ul>
-                
             </div>
-        <!--    <p>This app is under maintenance. For any queries, contact the admin. </p>
-
+            
             <div class="spinner" id="loadingSpinner"></div>
-        <button type="submit">Submit</button> -->
+            <button type="submit">Submit</button>
         </form>
     </div>
     <center><a href="index.html" class="back-button">Back to Home</a></center><br><br>
