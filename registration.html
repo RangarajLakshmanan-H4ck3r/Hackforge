@@ -9,16 +9,16 @@
         body, html {
             margin: 0;
             padding: 0;
-                font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-family: 'Poppins', sans-serif;
             overflow: auto;
         }
-                .terms-container {
+        .terms-container {
     border: 1px solid #ccc;
     padding: 10px;
     border-radius: 10px;
-    font-size:12px;
     width: 90%;
-    max-width: 500px;
+    font-size: 10px;
+    max-width: 400px;
     background: #f9f9f9;
     margin: 20px auto;
     text-align: left;
@@ -99,8 +99,8 @@
         }
 
         img{
-            width: 90%;
-    height: auto;
+            width: 50%;
+    height: 50%;
 
         }
         .image-container {
@@ -148,11 +148,9 @@
         <source src="background.mp4" type="video/mp4">
     </video>
 
-    <div class="form-container"> 
+    <div class="form-container">
         <h2>Team Registration Form</h2>
-       <Center> <p style="font-size:12px;">Registration for third-year students is no longer available.</p> </Center>
-         <Center> <p style="font-size:12px;">Entries will be strictly closed by 1:00 PM on March 5, 2025.</p> </Center>
-        <!-- <form id="registrationForm">
+        <form id="registrationForm">
             <input type="text" id="teamName" placeholder="Team Name" required>
         
             <h3>Team Leader</h3>
@@ -161,16 +159,19 @@
             <select id="teamLeaderDept" required>
                 <option value="" disabled selected>Department</option>
                 <option value="B.Sc">B.Sc</option>
+                <!-- <option value="M.Sc">M.Sc</option> -->
             </select>
             <select id="teamLeaderStream" required>
                 <option value="" disabled selected>Stream</option>
                 <option value="Computer Science">Computer Science</option>
                 <option value="Information Technology">Information Technology</option>
+                <!-- <option value="Data Science">Data Science</option> -->
             </select>
             <select id="teamLeaderYear" required>
                 <option value="" disabled selected>Year</option>
-                <option value="1">1</option>
                 <option value="2">2</option>
+                <!-- <option value="1">1</option> -->
+                <!-- <option value="3">3</option> -->
             </select>
         
             <h3>Participant 1</h3>
@@ -179,16 +180,19 @@
             <select id="participant1Dept" required>
                 <option value="" disabled selected>Department</option>
                 <option value="B.Sc">B.Sc</option>
+                <!-- <option value="M.Sc">M.Sc</option> -->
             </select>
             <select id="participant1Stream" required>
                 <option value="" disabled selected>Stream</option>
                 <option value="Computer Science">Computer Science</option>
                 <option value="Information Technology">Information Technology</option>
+                <!-- <option value="Data Science">Data Science</option> -->
             </select>
             <select id="participant1Year" required>
                 <option value="" disabled selected>Year</option>
-                <option value="1">1</option>
                 <option value="2">2</option>
+                <!-- <option value="1">1</option> -->
+                <!-- <option value="3">3</option> -->
             </select>
         
             <h3>Participant 2</h3>
@@ -197,16 +201,19 @@
             <select id="participant2Dept" required>
                 <option value="" disabled selected>Department</option>
                 <option value="B.Sc">B.Sc</option>
+                <!-- <option value="M.Sc">M.Sc</option> -->
             </select>
             <select id="participant2Stream" required>
                 <option value="" disabled selected>Stream</option>
                 <option value="Computer Science">Computer Science</option>
                 <option value="Information Technology">Information Technology</option>
+                <!-- <option value="Data Science">Data Science</option> -->
             </select>
             <select id="participant2Year" required>
                 <option value="" disabled selected>Year</option>
-                <option value="1">1</option>
                 <option value="2">2</option>
+                <!-- <option value="1">1</option> -->
+                <!-- <option value="3">3</option> -->
             </select>
          
             <h3>Participant 3</h3>
@@ -215,16 +222,19 @@
             <select id="participant3Dept" required>
                 <option value="" disabled selected>Department</option>
                 <option value="B.Sc">B.Sc</option>
+                <!-- <option value="M.Sc">M.Sc</option> -->
             </select>
             <select id="participant3Stream" required>
                 <option value="" disabled selected>Stream</option>
                 <option value="Computer Science">Computer Science</option>
                 <option value="Information Technology">Information Technology</option>
+                <!-- <option value="Data Science">Data Science</option> -->
             </select>
             <select id="participant3Year" required>
                 <option value="" disabled selected>Year</option>
-                <option value="1">1</option>
                 <option value="2">2</option>
+                <!-- <option value="1">1</option> -->
+                <!-- <option value="3">3</option> -->
             </select>
         
             <h3>Contact</h3>
@@ -244,37 +254,15 @@
             
             <div class="spinner" id="loadingSpinner"></div>
             <button type="submit">Submit</button>
-</form> -->
-
-<p>form under maintainance. try again later.</p>
-
+        </form>
     </div>
     <center><a href="index.html" class="back-button">Back to Home</a></center><br><br>
 
     <script>
-        // Fetch Problem Statements from Google Apps Script
-        async function loadProblemStatements() {
-    const response = await fetch("https://script.google.com/macros/s/AKfycbx2iV4fhPjkDI7aIX6Az6C2vOIdNVX8jNHc9QzKeR7ISWU1KL3UIYq1GUvBwd-JhYrJ/exec");
-    const problems = await response.json();
-
-    let dropdown = document.getElementById("problemStatement");
-    dropdown.innerHTML = '<option value="" disabled selected>-- Select Problem Statement --</option>';
-
-    problems.forEach(problem => {
-        let option = document.createElement("option");
-        option.value = problem.statement;  // Get the actual problem statement text
-        option.textContent = problem.statement;
-        dropdown.appendChild(option);
-    });
-}
-
-window.onload = loadProblemStatements;
-
-        document.getElementById("registrationForm").addEventListener("submit", function(event) {
+        document.getElementById("registrationForm").addEventListener("submit", async function(event) {
             event.preventDefault();
-            document.getElementById("loadingSpinner").style.display = "block";
-
-            var formData = {
+        
+            let formData = {
                 teamName: document.getElementById("teamName").value,
                 teamLeaderReg: document.getElementById("teamLeaderReg").value,
                 teamLeaderName: document.getElementById("teamLeaderName").value,
@@ -299,15 +287,39 @@ window.onload = loadProblemStatements;
                 teamLeaderEmail: document.getElementById("teamLeaderEmail").value,
                 teamLeaderPhone: document.getElementById("teamLeaderPhone").value
             };
-
-            fetch("https://script.google.com/macros/s/AKfycbx2iV4fhPjkDI7aIX6Az6C2vOIdNVX8jNHc9QzKeR7ISWU1KL3UIYq1GUvBwd-JhYrJ/exec", {
-                method: "POST",
-                body: JSON.stringify(formData)
-            }).then(() => {
-                document.getElementById("loadingSpinner").style.display = "none";
-                alert("Registration successful!");
-window.location.href = "index.html";
-            });
+        
+            let url = "https://script.google.com/macros/s/AKfycbx2iV4fhPjkDI7aIX6Az6C2vOIdNVX8jNHc9QzKeR7ISWU1KL3UIYq1GUvBwd-JhYrJ/exec"; // Replace with your Web App URL
+        
+            try {
+                let response = await fetch(url, {
+                    method: "POST",
+                    mode: "no-cors", // Try removing if it doesn't work
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(formData)
+                });
+        
+                alert("Registration Successful!");
+            } catch (error) {
+                alert("Error: " + error.message);
+            }
         });
-    </script>
+        document.getElementById("registrationForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent the default form submission
+        
+            // Show loading spinner and disable the submit button
+            document.getElementById("loadingSpinner").style.display = "block";
+            document.querySelector("button[type='submit']").style.display = "none";
+        
+            // Simulate form submission delay (Replace this with actual submission code)
+            setTimeout(() => {
+                document.getElementById("registrationForm").reset();
+                document.getElementById("loadingSpinner").style.display = "none";
+                document.querySelector("button[type='submit']").style.display = "block";
+            }, 3000); // 3 seconds delay for simulation
+        });
+        </script>
+        
+        
+        
+        
 </body>
