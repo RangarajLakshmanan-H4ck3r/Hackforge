@@ -255,14 +255,14 @@
     }
 
     if (existingTeams.has(teamName.toLowerCase())) {
-      alert("This team name has already been used. Please choose a different name.");
-      setTimeout(() => window.location.reload(), 500); // Reload after 500ms
+      alert("You have already choosen your problem statement.");
+      setTimeout(() => window.location.reload(), 100); // Reload after 500ms
       return;
     }
 
     if (selectedProblems.has(problemStatement)) {
       alert("This problem has already been chosen. Please select another one.");
-      setTimeout(() => window.location.reload(), 500); // Reload after 500ms
+      setTimeout(() => window.location.reload(), 100); // Reload after 500ms
       return;
     }
 
