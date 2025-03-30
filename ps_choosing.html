@@ -304,12 +304,12 @@
         document.getElementById("teamName").value = "";
         document.getElementById("problemDropdown").value = "";
       } else {
-        setTimeout(() => window.location.reload(), 500); // Reload if there is an issue (duplicate submission)
+        setTimeout(() => window.location.reload(), 100); // Reload if there is an issue (duplicate submission)
       }
     } catch (error) {
       console.error("Error submitting selection:", error);
       alert("Submission error.");
-      setTimeout(() => window.location.reload(), 500); // Reload on submission error
+      setTimeout(() => window.location.reload(), 100); // Reload on submission error
     } finally {
       // Hide loading screen after submission
       loadingScreen.style.display = "none";
