@@ -21,6 +21,15 @@
       object-fit: cover;
       z-index: -1;
     }
+    .video-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6); /* Adjust opacity for brightness */
+  z-index: 0;
+    }
     .container {
       position: relative;
       width: 70%;
@@ -33,6 +42,7 @@
       text-align: center;
       border: 2px solid rgba(0, 255, 0, 0.5);
       backdrop-filter: blur(8px);
+  z-index: 1; /* ensures form stays above overlay */
     }
     h2 {
       color: rgb(255, 255, 255);
@@ -168,8 +178,10 @@
 </head>
 <body>
   <video autoplay loop muted>
-    <source src="background.mp4" type="video/mp4">
-  </video>
+  <source src="background.mp4" type="video/mp4">
+</video>
+<!-- 🔹 Overlay Layer -->
+<div class="video-overlay"></div>
   <!-- Loading Screen (Initially Hidden) -->
   <div class="loading-screen" id="loadingScreen">
     Submitting... Please wait
@@ -320,3 +332,4 @@
 </script>
 </body>
 </html>
+
