@@ -5,7 +5,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Coders Club</title>
         <link rel="icon" href="logo1.png" type="image/png">
-
         <style>
             * {
                 margin: 0;
@@ -283,7 +282,6 @@
                 width: 100%;
                 max-height: 100px;
             }
-           
         </style>
     </head>
     <body>
@@ -305,10 +303,22 @@
             Choose Problem
         <img src="new.gif" alt="New" style="width: 30px; height: 10px;"> 
         <a href="registration.html">Registration</a>
+        <a href="#gallery" onclick="showGallery()">Gallery</a>
         <a href="#contact" onclick="showContact()">Contact</a>
     </div>
         
-<div class="hack"> <img src="logo1.png"> </div> <div class="container" id="home-page"> <span class="typing" id="typing-text"></span> <div class="tagline">Innovate. Code. Inspire.</div> </div><br> <p id="organizing-text">Organizing...</p> <div class="hack"> <img src="HACKFORGE.png"> </div>
+        <div class="hack">
+            <img src="logo1.png">
+        </div>
+        <div class="container" id="home-page">
+            <span class="typing" id="typing-text"></span>
+            <div class="tagline">Innovate. Code. Inspire.</div>
+        </div><br>
+        <p id="organizing-text">Organizing...</p>
+        <div class="hack">
+            <img src="HACKFORGE.png">
+        </div>
+        
         <div class="spinner" id="spinner"></div>
 
         <div class="problem-statements" id="problem-statements">
@@ -362,6 +372,15 @@
             </div>
         </div>
 
+        <div class="gallery" id="gallery-section" style="display: none;">
+            <h2>Gallery</h2>
+            <div class="gallery-container"> 
+                <img src="Hackforge flyer.png" alt="Image 1"> 
+                <p style="font-size:12px;">Hackforge 2k25 - 24Hrs Hackathon, Coders Club, KARE.</p>
+                
+                <!-- Add more images as needed -->
+            </div>
+        </div>
         
 
         <!-- Contact Section -->
@@ -565,13 +584,5 @@ function showContact() {
 
         typeEffect();
         </script>
-                
-
     </body>
     </html>
-
-
-
-
-
-
